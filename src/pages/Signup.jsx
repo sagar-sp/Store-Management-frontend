@@ -31,7 +31,7 @@ const Signup = () => {
           <div className="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center shadow-xl shadow-primary-600/20 mb-4 animate-bounce-slow">
             <ShoppingCart className="text-white" size={32} />
           </div>
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight font-primary">Join Antigravity</h1>
+          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight font-primary">Join RJSPM</h1>
           <p className="text-slate-500 mt-2 font-medium">Everything you need to grow your retail business</p>
         </div>
 

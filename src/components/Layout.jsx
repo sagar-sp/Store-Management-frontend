@@ -98,7 +98,8 @@ export const Layout = ({ children }) => {
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex transition-colors">
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] flex transition-colors">
+
       {/* Sidebar Overlay */}
       {isSidebarOpen && (
         <div 
@@ -113,7 +114,7 @@ export const Layout = ({ children }) => {
           <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center mr-3 shadow-lg shadow-primary-500/30">
             <ShoppingCart className="text-white" size={18} />
           </div>
-          <h1 className="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">Antigravity Store</h1>
+          <h1 className="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">RJSPM Store</h1>
         </div>
 
         <nav className="p-4 space-y-2">

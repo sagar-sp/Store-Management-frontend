@@ -38,8 +38,22 @@ const SidebarItem = ({ to, icon: Icon, label }) => (
 
 const Navbar = ({ toggleSidebar }) => {
   const { isDarkMode, toggleDarkMode } = useTheme();
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout } = React.useContext(AuthContext);
   const navigate = useNavigate();
+  const [isProfileOpen, setIsProfileOpen] = React.useState(false);
+  const profileRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -70,7 +84,12 @@ const Navbar = ({ toggleSidebar }) => {
 
         <div className="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-2"></div>
 
-        <div className="flex items-center space-x-3 group cursor-pointer relative">
+        <div 
+          ref={profileRef}
+          className="flex items-center space-x-3 cursor-pointer relative"
+          onClick={() => setIsProfileOpen(!isProfileOpen)}
+          onMouseEnter={() => setIsProfileOpen(true)}
+        >
           <div className="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600">
             <User size={18} />
           </div>
@@ -79,7 +98,7 @@ const Navbar = ({ toggleSidebar }) => {
             <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">{user?.role}</p>
           </div>
           
-          <div className="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-slate-100 dark:border-slate-800 py-1 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all transform translate-y-2 group-hover:translate-y-0 z-50">
+          <div className={`absolute top-full right-0 mt-2 w-48 bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-slate-100 dark:border-slate-800 py-1 transition-all transform z-50 ${isProfileOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none translate-y-2'}`}>
             <button onClick={() => navigate('/profile')} className="w-full text-left px-4 py-2 text-sm hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center space-x-2">
               <User size={16} /> <span>Profile Settings</span>
             </button>
